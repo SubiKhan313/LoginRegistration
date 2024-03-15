@@ -37,12 +37,26 @@ export const AddPostApi = createApi({
                 method: 'GET',
             }),
         }),
+        getAllRegions: builder.query({
+            query: () => ({
+                url: "getAllRegions",
+                method: "GET",
+            }),
+        }),
+        getCitiesByRegion: builder.query({
+            query: (id) => ({
+                url: `getCitiesByRegion/${id}`,
+                method: "GET",
+            }),
+        }),
     })
 })
 
 export const {
-    useAddPostQuery,
+    useAddPostMutation,
     useAllCategoriesQuery,
     useGetSubCategoriesByCategoryQuery,
     useGetChildCategoryBySubCategoryQuery,
+    useGetAllRegionsQuery,
+    useGetCitiesByRegionQuery,
 } = AddPostApi;

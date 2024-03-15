@@ -27,8 +27,7 @@ const Home = () => {
   return (
     <div>
     <h3>List of Categories</h3>
-    <select value={categoryId} onChange={handleSelectChange}>
-          <option value="">Select...</option>
+    <select value={categoryId} onChange={handleSelectChange}> <option>Select...</option>
           {categories &&
             categories?.map((item) => (
               <option key={item.id} value={item.id}>
@@ -37,8 +36,7 @@ const Home = () => {
             ))}
         </select>
         <div>
-          <select value={subCategoryId} onChange={(e) => setSubCategoryId(e.target.value)} >
-            <option>Sub-Categories</option>
+          <select value={subCategoryId} onChange={(e) => setSubCategoryId(e.target.value)}> <option>Sub-Categories</option>
             {subCategories &&
             subCategories?.map((item) => (
               <option key={item.id} value={item.id}>
@@ -48,8 +46,7 @@ const Home = () => {
           </select>
         </div>
         <div>
-          <select>
-            <option>Sub-Sub-Categories</option>
+          <select> <option>Sub-Sub-Categories</option>
             {subSubCategories &&
             subSubCategories?.map((item) => (
               <option key={item.id} value={item.id}>

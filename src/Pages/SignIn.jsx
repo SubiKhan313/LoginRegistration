@@ -12,13 +12,13 @@ const SignIn = () => {
   const [signIn] = useSignInMutation()
   const navigate = useNavigate()
 
-    const phonevalue = localStorage.getItem('PhoneNo')
+    const phoneValue = localStorage.getItem('PhoneNo')
 
     useEffect(() => {
-      if (phonevalue !== null){
-        setPhone(phonevalue)
+      if (phoneValue !== null){
+        setPhone(phoneValue)
       }
-    }, [phonevalue])
+    }, [phoneValue])
 
 
     const handleSubmit = async(event) => {
@@ -33,7 +33,8 @@ const SignIn = () => {
         console.log(response);
         if (response.data.success === true)
         {
-          localStorage.setItem('ApiToken', response.data.data.api_token)
+          localStorage.setItem('api_token', response.data.data.api_token)
+          localStorage.setItem('user_id', response.data.data.user_id)
 
           dispatch( setUserId(response.data.data.user_id))
           dispatch( setApiToken(response.data.data.api_token))

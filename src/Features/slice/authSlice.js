@@ -1,25 +1,27 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+ const userId = localStorage.getItem('user_id');
+const apiToken = localStorage.getItem('api_token');
 
 const initialState = {
-    api_token: null,
-    user_id: null,
+    api_token: apiToken ? apiToken : null,
+    user_id: userId ? userId : null,
 }
 export const authSlice = createSlice ({
     name: 'auth',
     initialState,
     reducers: {
-        logoutSuccess: (state, action) => {
+        logoutSuccess: (state, ) => {
             state.api_token = null;
             state.user_id = null;
         },
         
-        loginSuccess: (state, action) => {
+        loginSuccess: (state, ) => {
             state.api_token = null;
             state.user_id = null;
         },
 
-        registerSuccess: (state, action) => {
+        registerSuccess: (state, ) => {
             state.api_token = null;
             state.user_id = null;
         },

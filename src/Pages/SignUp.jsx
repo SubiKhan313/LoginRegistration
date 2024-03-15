@@ -31,6 +31,8 @@ const SignUp = () => {
       console.log(response);
       if(response.data.success){
       localStorage.setItem('ApiToken', response.data.data.api_token)
+      localStorage.setItem('user_id', response.data.data.user_id)
+
 
       dispatch(setUserId(response.data.data.user_id))
       dispatch(setApiToken(response.data.data.api_token))
