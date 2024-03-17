@@ -14,9 +14,10 @@ export const AddPostApi = createApi({
           }),
     endpoints: (builder) => ({
         addPost: builder.mutation({
-            query: () => ({
+            query: (data) => ({
                 url: 'listings',
                 method: 'POST',
+                body: data,
             }),
         }),
         allCategories: builder.query({
