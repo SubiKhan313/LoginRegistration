@@ -12,10 +12,10 @@ const DashBoard = () => {
     const [subCategoryId, setSubCategoryId] = useState('');
     const [subSubCategoryId, setSubSubCategoryId] = useState('');
     const [imageUrl, setImageUrl] = useState([]);
-    console.log("🚀 ~ DashBoard ~ imageUrl:", imageUrl)
+    const [featImg, setFeatImg] = useState('');
     const [title, setTitle] = useState('');
     const [price, setPrice] = useState('');
-    const [negotiable, setNegotiable] = useState(false);
+    const [negotiable, setNegotiable] = useState(0);
     const [description, setDescription] = useState('');
     const [expiryDate, setExpiryDate] = useState('');
     const [location, setLocation] = useState('');
@@ -30,15 +30,12 @@ const DashBoard = () => {
     const dispatch = useDispatch();
     const userSelector = useSelector(state => state.auth.user_id)
 
+
     useEffect(() => {
-      // Calculate expiry date (e.g., 30 days from today)
       const today = new Date();
       const thirtyDaysFromNow = new Date(today.setDate(today.getDate() + 30));
-  
-      // Format expiry date as yyyy-mm-dd (assuming you want this format)
       const formattedExpiryDate = thirtyDaysFromNow.toISOString().split('T')[0];
-  
-      // Set expiry date in state
+
       setExpiryDate(formattedExpiryDate);
     }, []);
 
@@ -46,6 +43,7 @@ const DashBoard = () => {
     const categories = category?.data
     const subCategories = subCategory?.data
     const subSubCategories = subSubCategory?.data
+
     const allRegions = getAllRegions?.data
     const citiesByRegion = getCitiesByRegion?.data
 
@@ -72,7 +70,7 @@ const DashBoard = () => {
         formData.append('category_id', categoryId)
         formData.append('sub_category_id', subCategoryId)
         formData.append('sub_sub_category_id', subSubCategoryId)
-        formData.append('featured_image', imageUrl[0])
+        formData.append('featured_image', featImg)
         // formData.append('images[]', imageUrl)
         formData.append('title', title)
         formData.append('price', price)
@@ -110,7 +108,11 @@ const DashBoard = () => {
 
         const selectedImages = Array.from(files);
         setImageUrl([...imageUrl, ...selectedImages])
-        
+
+        const firstImage= selectedImages[0]
+        setFeatImg(firstImage)
+        console.log('Featured image',featImg);
+
         // if(files.length > 0){
         //   if(imageUrl.length + files.length <= 12){
         //   }
@@ -181,7 +183,7 @@ const DashBoard = () => {
                 </div>
                 <input onChange={(e) => setTitle(e.target.value)} value={title} placeholder='Title' type="text" />
                 <input onChange={(e) => setPrice(e.target.value)} value={price} placeholder='Price' type="number" />
-                <input checked={negotiable} onChange={() => setNegotiable(prevState => !prevState)} value={negotiable} type="checkbox" />
+                <input checked={negotiable} onChange={() => setNegotiable(negotiable === 0 ? 1 : 0)} value={negotiable} type="checkbox" />
                 <textarea onChange={(e) => setDescription(e.target.value)} value={description} placeholder='Description' cols="30" rows="10"></textarea>
                 <input onChange={(e) => setExpiryDate(e.target.value)} value={expiryDate} placeholder='Ad Expiry Date' type="text" disabled/>
                 <select value={location} onChange={(e) => setLocation(e.target.value)} ><option>Select Location</option>
