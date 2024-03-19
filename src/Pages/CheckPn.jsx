@@ -2,6 +2,9 @@ import { useState } from 'react'
 import { useCheckPhoneMutation } from '../Features/api/authApi';
 import { useNavigate } from 'react-router-dom';
 
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+
 const CheckPn = () => {
   const navigate = useNavigate();
   const [phone, setPhone] = useState('');
@@ -42,11 +45,20 @@ const CheckPn = () => {
 
 
   return (
-    <div>
+    <div style={{display: 'flex', margin: '20px', alignItems: 'center', justifyItems: 'center', justifyContent: 'center', marginTop: '250px'}}>
         <form style={{display: 'flex', flexDirection: 'column'}} onSubmit={handleSubmit} >
-        <input style={{margin: '7px'}} onChange={handleChange} value={phone} type="tel" name='phone' maxLength={10} required/>
-        {/* <input style={{margin: '7px'}} onChange={handleChange} value={phone.type} type="text" name=''/> */}
-        <button style={{margin: '7px'}} type='submit'>Next</button>
+          <Form.Group className="mb-3" controlId="formBasicEmail">
+          <Form.Label>Phone Number</Form.Label>
+          <Form.Control onChange={handleChange} value={phone} type="tel" name='phone' maxLength={10} required placeholder="Enter Phone Number"/>
+          </Form.Group>
+
+          {/* <input style={{margin: '7px'}} onChange={handleChange} value={phone} type="tel" name='phone' maxLength={10} required/> */}
+
+          <Button variant="primary" type="submit">
+            Next
+          </Button>
+
+          {/* <button style={{margin: '7px'}} type='submit'>Next</button> */}
         </form>
     </div>
   )

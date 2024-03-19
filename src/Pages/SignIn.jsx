@@ -5,6 +5,9 @@ import { useNavigate } from 'react-router-dom'
 import { setApiToken, setUserId } from '../Features/slice/authSlice'
 import { useDispatch } from 'react-redux'
 
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+
 const SignIn = () => {
   const dispatch = useDispatch()
   const [phone, setPhone] = useState('')
@@ -49,11 +52,25 @@ const SignIn = () => {
       }
     }
   return (
-    <div>
+    <div style={{display: 'flex', margin: '20px', alignItems: 'center', justifyItems: 'center', justifyContent: 'center', marginTop: '250px'}}>
         <form style={{display: 'flex', flexDirection: 'column'}} onSubmit={handleSubmit}>
-            <input style={{margin: '7px'}} value={phone} type="number" readOnly/>
+        <Form.Group className="mb-3" controlId="formBasicEmail">
+        <Form.Label>Phone Number</Form.Label>
+        <Form.Control value={phone} type="number" placeholder="Enter Phone Number" readOnly/>
+        </Form.Group>
+
+      <Form.Group className="mb-3" controlId="formBasicPassword">
+        <Form.Label >Password</Form.Label>
+        <Form.Control value={password} onChange={(e) => setPassword(e.target.value)} type="password" placeholder="Password" />
+      </Form.Group>
+
+      <Button variant="primary" type="submit">
+        Submit
+      </Button>
+
+            {/* <input style={{margin: '7px'}} value={phone} type="number" readOnly/>
             <input style={{margin: '7px'}} value={password} type="password" onChange={(e) => setPassword(e.target.value)}/>
-            <button style={{margin: '7px'}} type='submit'>SignIn</button>
+            <button style={{margin: '7px'}} type='submit'>SignIn</button> */}
         </form>
     </div>
   )
