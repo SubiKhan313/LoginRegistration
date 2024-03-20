@@ -1,7 +1,4 @@
-// import { useNavigate } from 'react-router-dom'
-// import { useSignOutMutation } from '../Features/api/authApi';
 import { useSelector } from "react-redux";
-// import { logoutSuccess } from '../Features/slice/authSlice'
 import { useEffect, useState } from "react";
 import {
   useAddPostMutation,
@@ -29,7 +26,6 @@ const DashBoard = () => {
   const [expiryDate, setExpiryDate] = useState("");
   const [location, setLocation] = useState("");
   const [city, setCity] = useState("");
-  // const [signOut] = useSignOutMutation();
   const { data: category } = useAllCategoriesQuery();
   const { data: subCategory } = useGetSubCategoriesByCategoryQuery(categoryId);
   const { data: subSubCategory } =
@@ -37,8 +33,6 @@ const DashBoard = () => {
   const { data: getAllRegions } = useGetAllRegionsQuery();
   const { data: getCitiesByRegion } = useGetCitiesByRegionQuery(location);
   const userSelector = useSelector((state) => state.auth.user_id);
-  // const navigate = useNavigate();
-  // const dispatch = useDispatch();
 
   const categories = category?.data;
   const subCategories = subCategory?.data;
@@ -54,21 +48,6 @@ const DashBoard = () => {
 
     setExpiryDate(formattedExpiryDate);
   }, []);
-
-  // const handleClick = async() => {
-  //     try {
-  //         const response = await signOut()
-  //         console.log(response);
-  //         dispatch(logoutSuccess())
-
-  //         localStorage.removeItem('PhoneNo')
-  //         localStorage.removeItem('api_token')
-  //         localStorage.removeItem('user_id')
-  //         navigate('/')
-  //     } catch (error) {
-  //         console.error('Error: ', error);
-  //     }
-  // }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
