@@ -70,18 +70,26 @@ const Home = () => {
 
     if (!inputFields.categories) {
       validationErrors.categories = "Select Category";
+    } else {
+      validationErrors.categories = "";
     }
     if (!inputFields.subCategories) {
       validationErrors.subCategories = "Select SubCategory";
+    } else {
+      validationErrors.subCategories = "";
     }
     if (!inputFields.subSubCategories) {
       validationErrors.subSubCategories = "Select Sub SubCategory";
+    } else {
+      validationErrors.subSubCategories = "";
     }
     if (!inputFields.title.trim()) {
       validationErrors.title = "Title is Required";
     }
-    if (!inputFields.imageUrl.trim()) {
-      validationErrors.imageUrl = "Title is Required";
+    if (!inputFields.imageUrl || inputFields.imageUrl.length < 2) {
+      validationErrors.imageUrl = "Minimum two images is required";
+    } else if (inputFields.imageUrl > 10) {
+      validationErrors.imageUrl = "Maximum 10 images allowed";
     }
     if (!inputFields.price.trim()) {
       validationErrors.price = "Price is Required";
@@ -166,6 +174,13 @@ const Home = () => {
       ...prevInputFields,
       [name]: type === "checkbox" ? checked : value,
     }));
+
+    // inputFields.categoriesId = "";
+    // inputFields.subCategoriesId = "";
+    // inputFields.subSubCategoriesId = "";
+    // inputFields.location = "";
+    // inputFields.city = "";
+
     // const { name, value } = e.target;
     // setInputFields({ ...inputFields, [name]: value });
   };
@@ -246,8 +261,10 @@ const Home = () => {
                     {item.name}
                   </option>
                 ))}
+              {errors.subSubCategories && (
+                <span style={{ color: "red" }}>{errors.subSubCategories}</span>
+              )}
             </Form.Select>
-            {/* {errors.subSubCategories && (<span style={{ color: "red" }}>{errors.subSubCategories}</span>)} */}
           </div>
 
           <input
