@@ -15,17 +15,27 @@ import Button from "react-bootstrap/Button";
 const DashBoard = () => {
   const [addPost] = useAddPostMutation();
   const [categoryId, setCategoryId] = useState("");
+  const [categoryIdError, setCategoryIdError] = useState("");
   const [subCategoryId, setSubCategoryId] = useState("");
+  const [subCategoryIdError, setSubCategoryIdError] = useState("");
   const [subSubCategoryId, setSubSubCategoryId] = useState("");
   const [imageUrl, setImageUrl] = useState([]);
+  const [imageUrlError, setImageUrlError] = useState([]);
   const [featuredImage, setFeaturedImage] = useState("");
+  const [featuredImageError, setFeaturedImageError] = useState("");
   const [title, setTitle] = useState("");
+  const [titleError, setTitleError] = useState("");
   const [price, setPrice] = useState("");
+  const [priceError, setPriceError] = useState("");
   const [negotiable, setNegotiable] = useState(0);
   const [description, setDescription] = useState("");
+  const [descriptionError, setDescriptionError] = useState("");
   const [expiryDate, setExpiryDate] = useState("");
   const [location, setLocation] = useState("");
+  const [locationError, setLocationError] = useState("");
   const [city, setCity] = useState("");
+  const [cityError, setCityError] = useState("");
+
   const { data: category } = useAllCategoriesQuery();
   const { data: subCategory } = useGetSubCategoriesByCategoryQuery(categoryId);
   const { data: subSubCategory } =
@@ -51,6 +61,84 @@ const DashBoard = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    let hasError = false;
+
+    if (!categoryId) {
+      setCategoryIdError("Category is required");
+      hasError = true;
+    } else {
+      setCategoryIdError("");
+    }
+
+    if (!subCategoryId) {
+      setSubCategoryIdError("SubCategory is required");
+      hasError = true;
+    } else {
+      setSubCategoryIdError("");
+    }
+
+    if (!imageUrl || imageUrl.length < 2) {
+      setImageUrlError("Minimum 2 images is required");
+      hasError = true;
+    } else if (imageUrl.length > 10) {
+      setImageUrlError("Maximum 10 images is allowed");
+    } else {
+      setImageUrlError("");
+    }
+
+    if (!featuredImage) {
+      setFeaturedImageError("Image is required");
+      hasError = true;
+    } else {
+      setFeaturedImageError("");
+    }
+
+    if (!title) {
+      setTitleError("Title is required");
+      hasError = true;
+    } else {
+      setTitleError("");
+    }
+
+    if (!price) {
+      setPriceError("Price is required");
+      hasError = true;
+    } else {
+      setPrice("");
+    }
+
+    if (!description) {
+      setDescriptionError("Description is required");
+      hasError = true;
+    } else if (description.length < 10) {
+      setDescriptionError("Description should be more then 10 character");
+      hasError = true;
+    } else if (description.length > 300) {
+      setDescriptionError("Description should be less then 300 character");
+      hasError = true;
+    } else {
+      setCategoryIdError("");
+    }
+
+    if (!location) {
+      setLocationError("Location is required");
+      hasError = true;
+    } else {
+      setLocationError("");
+    }
+
+    if (!city) {
+      setCityError("City is required");
+      hasError = true;
+    } else {
+      setCityError("");
+    }
+
+    if (hasError) {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      return;
+    }
 
     const formData = new FormData();
     formData.append("user_id", userSelector);
@@ -165,6 +253,9 @@ const DashBoard = () => {
                 </option>
               ))}
           </Form.Select>
+          {categoryIdError && (
+            <span style={{ color: "red" }}>{categoryIdError}</span>
+          )}
 
           {/* <select value={categoryId} onChange={(e) => setCategoryId(e.target.value)}> <option>Select...</option>
             {
@@ -189,6 +280,9 @@ const DashBoard = () => {
                 </option>
               ))}
           </Form.Select>
+          {subCategoryIdError && (
+            <span style={{ color: "red" }}>{subCategoryIdError}</span>
+          )}
 
           {/* <div>
           <select value={subCategoryId} onChange={(e) => setSubCategoryId(e.target.value)}> <option>Sub-Categories</option>
@@ -229,6 +323,12 @@ const DashBoard = () => {
             onChange={handleFileUpload}
             multiple
           />
+          {imageUrlError && (
+            <span style={{ color: "red" }}>{imageUrlError}</span>
+          )}
+          {featuredImageError && (
+            <span style={{ color: "red" }}>{featuredImageError}</span>
+          )}
           <div
             style={{
               width: "400px",
@@ -257,6 +357,7 @@ const DashBoard = () => {
               placeholder="Enter Title"
             />
           </Form.Group>
+          {titleError && <span style={{ color: "red" }}>{titleError}</span>}
 
           {/* <input onChange={(e) => setTitle(e.target.value)} value={title} placeholder='Title' type="text" /> */}
 
@@ -269,6 +370,7 @@ const DashBoard = () => {
               placeholder="Enter Price"
             />
           </Form.Group>
+          {priceError && <span style={{ color: "red" }}>{priceError}</span>}
 
           {/* <input onChange={(e) => setPrice(e.target.value)} value={price} placeholder='Price' type="number" /> */}
 
@@ -293,6 +395,9 @@ const DashBoard = () => {
               rows={3}
             />
           </Form.Group>
+          {descriptionError && (
+            <span style={{ color: "red" }}>{descriptionError}</span>
+          )}
 
           {/* <textarea onChange={(e) => setDescription(e.target.value)} value={description} placeholder='Description' cols="30" rows="10"></textarea> */}
 
@@ -322,6 +427,9 @@ const DashBoard = () => {
                 </option>
               ))}
           </Form.Select>
+          {locationError && (
+            <span style={{ color: "red" }}>{locationError}</span>
+          )}
 
           {/* <select value={location} onChange={(e) => setLocation(e.target.value)} ><option>Select Location</option>
                 {
@@ -345,6 +453,7 @@ const DashBoard = () => {
                 </option>
               ))}
           </Form.Select>
+          {cityError && <span style={{ color: "red" }}>{cityError}</span>}
 
           {/* <select value={city} onChange={(e) => setCity(e.target.value)}><option>Select City</option>
                 {

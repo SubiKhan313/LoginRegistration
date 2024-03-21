@@ -68,52 +68,65 @@ const Home = () => {
 
     const validationErrors = {};
 
-    if (!inputFields.categories) {
-      validationErrors.categories = "Select Category";
-    } else {
-      validationErrors.categories = "";
+    let hasError = false;
+
+    if (!inputFields.categoriesId || inputFields.categoriesId.length <= 0) {
+      validationErrors.categoriesId = "Select Category";
+      hasError = true;
     }
-    if (!inputFields.subCategories) {
-      validationErrors.subCategories = "Select SubCategory";
-    } else {
-      validationErrors.subCategories = "";
+    if (!inputFields.subCategoriesId) {
+      validationErrors.subCategoriesId = "Select SubCategory";
+      hasError = true;
     }
-    if (!inputFields.subSubCategories) {
-      validationErrors.subSubCategories = "Select Sub SubCategory";
-    } else {
-      validationErrors.subSubCategories = "";
-    }
+    // if (!inputFields.subSubCategories) {
+    //   validationErrors.subSubCategories = "Select Sub SubCategory";
+    //   hasError = true;
+    // }
     if (!inputFields.title.trim()) {
       validationErrors.title = "Title is Required";
+      hasError = true;
     }
     if (!inputFields.imageUrl || inputFields.imageUrl.length < 2) {
       validationErrors.imageUrl = "Minimum two images is required";
+      hasError = true;
     } else if (inputFields.imageUrl > 10) {
       validationErrors.imageUrl = "Maximum 10 images allowed";
+      hasError = true;
     }
     if (!inputFields.price.trim()) {
       validationErrors.price = "Price is Required";
+      hasError = true;
     }
     if (!inputFields.description.trim()) {
       validationErrors.description = "Description is required";
+      hasError = true;
     } else if (inputFields.description.length < 10) {
       validationErrors.description =
         "Description Should not be less then 10 Character";
+      hasError = true;
+    } else if (inputFields.description.length > 200) {
+      validationErrors.description =
+        "Description should be less then 200 character";
+      hasError = true;
     }
     if (!inputFields.location.trim()) {
       validationErrors.location = "Select Location";
+      hasError = true;
     }
     if (!inputFields.city.trim()) {
       validationErrors.city = "Select City";
-    }
-    if (!inputFields.subSubCategoriesId.trim()) {
-      validationErrors.categoriesId = "Select Sub SubCategory";
+      hasError = true;
     }
 
     setErrors(validationErrors);
 
     if (Object.keys(validationErrors).length === 0) {
       alert("Form Submitted Successfully");
+    }
+
+    if (hasError) {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      return;
     }
 
     const formData = new FormData();
@@ -174,6 +187,7 @@ const Home = () => {
       ...prevInputFields,
       [name]: type === "checkbox" ? checked : value,
     }));
+    // setErrors("");
 
     // inputFields.categoriesId = "";
     // inputFields.subCategoriesId = "";
@@ -212,7 +226,7 @@ const Home = () => {
           <div>
             <Form.Select
               name="categoriesId"
-              // value={categoryId}
+              value={inputFields.categoryId}
               onChange={handleChange}
               aria-label="Default select example"
             >
@@ -224,8 +238,8 @@ const Home = () => {
                   </option>
                 ))}
             </Form.Select>
-            {errors.categories && (
-              <span style={{ color: "red" }}>{errors.categories}</span>
+            {errors.categoriesId && (
+              <span style={{ color: "red" }}>{errors.categoriesId}</span>
             )}
           </div>
 
@@ -244,8 +258,8 @@ const Home = () => {
                   </option>
                 ))}
             </Form.Select>
-            {errors.subCategories && (
-              <span style={{ color: "red" }}>{errors.subCategories}</span>
+            {errors.subCategoriesId && (
+              <span style={{ color: "red" }}>{errors.subCategoriesId}</span>
             )}
           </div>
 
@@ -261,9 +275,9 @@ const Home = () => {
                     {item.name}
                   </option>
                 ))}
-              {errors.subSubCategories && (
+              {/* {errors.subSubCategories && (
                 <span style={{ color: "red" }}>{errors.subSubCategories}</span>
-              )}
+              )} */}
             </Form.Select>
           </div>
 
@@ -381,6 +395,9 @@ const Home = () => {
                 </option>
               ))}
           </Form.Select>
+          {errors.location && (
+            <span style={{ color: "red" }}>{errors.location}</span>
+          )}
 
           <Form.Select
             name="city"
@@ -396,6 +413,7 @@ const Home = () => {
                 </option>
               ))}
           </Form.Select>
+          {errors.city && <span style={{ color: "red" }}>{errors.city}</span>}
 
           <Button variant="primary" type="submit">
             Submit
