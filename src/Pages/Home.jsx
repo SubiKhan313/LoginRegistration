@@ -187,7 +187,7 @@ const Home = () => {
       ...prevInputFields,
       [name]: type === "checkbox" ? checked : value,
     }));
-    // setErrors("");
+    setErrors("");
 
     // inputFields.categoriesId = "";
     // inputFields.subCategoriesId = "";

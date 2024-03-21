@@ -14,27 +14,27 @@ import Button from "react-bootstrap/Button";
 
 const DashBoard = () => {
   const [addPost] = useAddPostMutation();
-  const [categoryId, setCategoryId] = useState("");
   const [categoryIdError, setCategoryIdError] = useState("");
-  const [subCategoryId, setSubCategoryId] = useState("");
   const [subCategoryIdError, setSubCategoryIdError] = useState("");
+  const [imageUrlError, setImageUrlError] = useState([]);
+  const [featuredImageError, setFeaturedImageError] = useState("");
+  const [titleError, setTitleError] = useState("");
+  const [priceError, setPriceError] = useState("");
+  const [descriptionError, setDescriptionError] = useState("");
+  const [locationError, setLocationError] = useState("");
+  const [cityError, setCityError] = useState("");
+  const [categoryId, setCategoryId] = useState("");
+  const [subCategoryId, setSubCategoryId] = useState("");
   const [subSubCategoryId, setSubSubCategoryId] = useState("");
   const [imageUrl, setImageUrl] = useState([]);
-  const [imageUrlError, setImageUrlError] = useState([]);
   const [featuredImage, setFeaturedImage] = useState("");
-  const [featuredImageError, setFeaturedImageError] = useState("");
   const [title, setTitle] = useState("");
-  const [titleError, setTitleError] = useState("");
   const [price, setPrice] = useState("");
-  const [priceError, setPriceError] = useState("");
   const [negotiable, setNegotiable] = useState(0);
   const [description, setDescription] = useState("");
-  const [descriptionError, setDescriptionError] = useState("");
   const [expiryDate, setExpiryDate] = useState("");
   const [location, setLocation] = useState("");
-  const [locationError, setLocationError] = useState("");
   const [city, setCity] = useState("");
-  const [cityError, setCityError] = useState("");
 
   const { data: category } = useAllCategoriesQuery();
   const { data: subCategory } = useGetSubCategoriesByCategoryQuery(categoryId);
@@ -200,6 +200,9 @@ const DashBoard = () => {
     const firstImage = selectedImages[0];
     setFeaturedImage(firstImage);
 
+    setImageUrlError("");
+    setFeaturedImageError("");
+
     // if(files.length > 0){
     //   if(imageUrl.length + files.length <= 12){
     //   }
@@ -215,6 +218,45 @@ const DashBoard = () => {
     //     };
     //     reader.readAsDataURL(file)
     // }
+  };
+
+  const handleCategoriesChange = (e) => {
+    setCategoryId(e.target.value);
+    setCategoryIdError("");
+  };
+
+  const handleSubCategoriesChange = (e) => {
+    setSubCategoryId(e.target.value);
+    setSubCategoryIdError("");
+  };
+
+  // const handleSubSubCategoriesChange = (e) => {
+  //   setSubSubCategoryId(e.target.value);
+  // };
+
+  const handleTitleChange = (e) => {
+    setTitle(e.target.value);
+    setTitleError("");
+  };
+
+  const handlePriceChange = (e) => {
+    setPrice(e.target.value);
+    setPriceError("");
+  };
+
+  const handleDescriptionChange = (e) => {
+    setDescription(e.target.value);
+    setDescriptionError("");
+  };
+
+  const handleLocationChange = (e) => {
+    setLocation(e.target.value);
+    setLocationError("");
+  };
+
+  const handleCityChange = (e) => {
+    setCity(e.target.value);
+    setCityError("");
   };
 
   return (
@@ -242,7 +284,7 @@ const DashBoard = () => {
         >
           <Form.Select
             value={categoryId}
-            onChange={(e) => setCategoryId(e.target.value)}
+            onChange={handleCategoriesChange}
             aria-label="Default select example"
           >
             <option>Select Category</option>
@@ -269,7 +311,7 @@ const DashBoard = () => {
 
           <Form.Select
             value={subCategoryId}
-            onChange={(e) => setSubCategoryId(e.target.value)}
+            onChange={handleSubCategoriesChange}
             aria-label="Default select example"
           >
             <option>Select SubCategory</option>
@@ -351,7 +393,7 @@ const DashBoard = () => {
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>Title</Form.Label>
             <Form.Control
-              onChange={(e) => setTitle(e.target.value)}
+              onChange={handleTitleChange}
               value={title}
               type="text"
               placeholder="Enter Title"
@@ -364,7 +406,7 @@ const DashBoard = () => {
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>Price</Form.Label>
             <Form.Control
-              onChange={(e) => setPrice(e.target.value)}
+              onChange={handlePriceChange}
               value={price}
               type="number"
               placeholder="Enter Price"
@@ -388,7 +430,7 @@ const DashBoard = () => {
           <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
             <Form.Label>Description</Form.Label>
             <Form.Control
-              onChange={(e) => setDescription(e.target.value)}
+              onChange={handleDescriptionChange}
               value={description}
               placeholder="Description"
               as="textarea"
@@ -416,7 +458,7 @@ const DashBoard = () => {
 
           <Form.Select
             value={location}
-            onChange={(e) => setLocation(e.target.value)}
+            onChange={handleLocationChange}
             aria-label="Default select example"
           >
             <option>Select Region</option>
@@ -442,7 +484,7 @@ const DashBoard = () => {
 
           <Form.Select
             value={city}
-            onChange={(e) => setCity(e.target.value)}
+            onChange={handleCityChange}
             aria-label="Default select example"
           >
             <option>Select City</option>
