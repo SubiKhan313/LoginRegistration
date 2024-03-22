@@ -17,7 +17,7 @@ const DashBoard = () => {
   const [categoryIdError, setCategoryIdError] = useState("");
   const [subCategoryIdError, setSubCategoryIdError] = useState("");
   const [imageUrlError, setImageUrlError] = useState([]);
-  const [featuredImageError, setFeaturedImageError] = useState("");
+  // const [featuredImageError, setFeaturedImageError] = useState("");
   const [titleError, setTitleError] = useState("");
   const [priceError, setPriceError] = useState("");
   const [descriptionError, setDescriptionError] = useState("");
@@ -87,12 +87,12 @@ const DashBoard = () => {
       setImageUrlError("");
     }
 
-    if (!featuredImage) {
-      setFeaturedImageError("Image is required");
-      hasError = true;
-    } else {
-      setFeaturedImageError("");
-    }
+    // if (!featuredImage) {
+    //   setFeaturedImageError("Image is required");
+    //   hasError = true;
+    // } else {
+    //   setFeaturedImageError("");
+    // }
 
     if (!title) {
       setTitleError("Title is required");
@@ -201,7 +201,7 @@ const DashBoard = () => {
     setFeaturedImage(firstImage);
 
     setImageUrlError("");
-    setFeaturedImageError("");
+    // setFeaturedImageError("");
 
     // if(files.length > 0){
     //   if(imageUrl.length + files.length <= 12){
@@ -276,6 +276,7 @@ const DashBoard = () => {
           placeItems: "center",
           width: "400px",
           height: "600px",
+          marginBottom: "300px",
         }}
       >
         <form
@@ -368,9 +369,9 @@ const DashBoard = () => {
           {imageUrlError && (
             <span style={{ color: "red" }}>{imageUrlError}</span>
           )}
-          {featuredImageError && (
+          {/* {featuredImageError && (
             <span style={{ color: "red" }}>{featuredImageError}</span>
-          )}
+          )} */}
           <div
             style={{
               width: "400px",
