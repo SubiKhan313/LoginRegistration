@@ -42,6 +42,9 @@ const NavBar = () => {
                 <Nav.Link>
                   <Link to="/">Home</Link>
                 </Nav.Link>
+                <Nav.Link>
+                  <Link to="/designhome">Home Design</Link>
+                </Nav.Link>
                 {isLogin ? (
                   <Nav.Link style={{ display: "flex", textDecoration: "none" }}>
                     <Link onClick={handleClick} to="/">

@@ -11,6 +11,7 @@ import SignUp from "./Pages/SignUp";
 import CheckPn from "./Pages/CheckPn";
 import SignIn from "./Pages/SignIn";
 import DashBoard from "./Pages/DashBoard";
+import DesignHome from "./Pages/DesignHome";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <NavBar />
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/designhome" element={<DesignHome />} />
             <Route path="/dashboard" element={<DashBoard />} />
             <Route path="/checkpn" element={<CheckPn />} />
             <Route path="/signin" element={<SignIn />} />
